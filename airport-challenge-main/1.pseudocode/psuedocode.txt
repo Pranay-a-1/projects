@@ -1,0 +1,100 @@
+// us1
+// create airport class
+// create plane class
+
+class AIRPORT {
+    constructor(_airportID, _defaultCapacity) {
+        this._airportID = _airportID;
+        this._capacity = _defaultCapacity;
+        this.weather = stormy or clear;
+        this.listOfLandedPlanes = [];
+        this.globalListOfPlanes = [];
+
+    }
+
+    landAPlane(inputPlaneObj) {
+        let landingMessage; // this will hold the an error or a success message
+
+        this._weather;
+
+        if (capacityisfull) {
+            return landingMessage = 'Airport capacity full';
+        }
+
+        else if (stormy) {
+            return landingMessage = 'weather is stormy cannot land the plane';
+        }
+
+
+        else if (this.listOfLandedPlanes.length === 0) {
+            inputPlaneObj.landedAt = this_airportID;
+            this.listOfLandedPlanes = [...this.listOfLandedPlanes, inputPlaneObj];
+            return this.listOfLandedPlanes;
+        }
+
+        // else if (this.listOfLandedPlanes.length < this._capacity) {
+        //     if (this.listOfLandedPlanes.forEach(elementObject => {
+        //         if (Object.values(elementObject).incudes(inputPlaneObj.planeID)) {
+        //             landingMessage = "plane already landed"
+        //             return landingMessage;
+        //         }
+        //     }))
+        // }
+
+        else if (this.listOfLandedPlanes.length < this._capacity) {
+            if (this.listOfLandedPlanes.forEach(elementObject => {
+                if (Object.values(elementObject).incudes(inputPlaneObj.planeID)) {
+                    //for 2nd if
+                    landingMessage = "plane already landed"
+                    return landingMessage;
+                }
+            })) {
+                // for 1st if
+                return landingMessage;
+
+            }
+            //for else if
+            inputPlaneObj.landedAt = this_airportID;
+            this.listOfLandedPlanes = [...this.listOfLandedPlanes, inputPlaneObj];
+            return this.listOfLandedPlanes;
+        }
+
+
+
+    }
+}
+
+
+class PLANE {
+    constructor(_planeID) {
+        this.planeID = _planeID;
+        this.landedAt = "unknown"; // change this after landing
+        // < !-- for changing
+        // this.airportId = get airportID from landAPlane function(i.e.this._airportID) -->
+    }
+}
+
+
+
+
+
+
+us8-
+
+    create multiple airports (created 3 airports for tests)
+
+refer to an array of copyOfGlobalListOfPlanesSyncedAcrossAllAirportsInTheWorld, where landAt property can be modified and this information can be accessed by all the airport to check where a particular planeID is landedAt.
+
+land few planes in airport1 (landed 2 for testing )
+land few planes in airport2(landed 1  for testing)
+land few planes in airport3(landed 5  for testing)
+
+count planes with airportID === airport1
+count planes with airportID === airport2
+count planes with airportID === airport3
+
+sum the above 3 (result should be 8 for the test)
+
+
+
+    

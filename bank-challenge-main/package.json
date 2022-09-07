@@ -1,0 +1,25 @@
+{
+  "name": "bank-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pranay-a-1/bank-challenge.git"
+  },
+  "author": "Pranay A",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pranay-a-1/bank-challenge/issues"
+  },
+  "homepage": "https://github.com/Pranay-a-1/bank-challenge#readme",
+  "devDependencies": {
+    "jasmine": "^4.2.1"
+  }
+}

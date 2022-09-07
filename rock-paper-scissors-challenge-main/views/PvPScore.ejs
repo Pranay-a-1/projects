@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 1.6rem; height: 100%;">
+
+<head>
+    <%- include ('../views/head.ejs') %>
+</head>
+
+<body style="height: 100%;">
+    <div class="h-100  align-items-center justify-content-center">
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 ">Player1 (<%= player1Name %>) Chose : <%= playerChosenMove %>
+            </p>
+        </blockquote>
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 ">Player2 (<%= player2Name %>) Chose : <%= player2ChosenMove %>
+            </p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 "> Round Result : <%=roundWinner%>
+            </p>
+        </blockquote>
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 "> Player1 (<%= player1Name %>) Score : <%=Player1Score%> ||| Player2 (<%= player2Name %>)
+                            Score : <%=Player2Score%>
+            </p>
+        </blockquote>
+        <blockquote class="blockquote text-center">
+            <form action="/PvPP1Choice" method="get">
+                <button type="submit" class="btn btn-primary btn-lg" value="PvPNextRound" name="PvPNextRound">Play Next
+                    Round</button>
+            </form>
+            <br>
+            <form action="/" method="get">
+                <button type="submit" class="btn btn-primary btn-lg" value="End" name="End">End Game</button>
+            </form>
+        </blockquote>
+    </div>
+</body>
+
+
+</html>

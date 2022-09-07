@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 1.6rem; height: 100%;">
+
+<head>
+    <%- include ('../views/head.ejs') %>
+</head>
+
+<body style="height: 100%;">
+    <div class="h-100  align-items-center justify-content-center">
+        <!-- <blockquote class="blockquote text-center">
+            <h1 class="display-5">R-P-S-L-S Game</h1>
+        </blockquote> -->
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 ">Player (<%=playerName%>) Chose : <%=PlayerChosenMove%>
+            </p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 ">Computer Chose : <%=ComputerMove%>
+            </p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 "> Round Result : <%=roundWinner%>
+            </p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 "> Player (<%=playerName%>) Score : <%=PlayerScore%> ||| Computer Score : <%=ComputerScore%>
+            </p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0 ">Play Again, Choose your next move :</p>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <form action="/score" method="post">
+                <%- include ('../views/RPSbuttons.ejs') %>
+            </form>
+        </blockquote>
+        <blockquote class="blockquote text-center">
+            <form action="/" method="get">
+                <button type="submit" class="btn btn-primary btn-lg" value="End" name="End">End Game</button>
+            </form>
+        </blockquote>
+    </div>
+</body>
+
+
+</html>

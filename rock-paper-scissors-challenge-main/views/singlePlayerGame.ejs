@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 1.6rem; height: 100%;">
+
+<head>
+    <%- include ('../views/head.ejs') %>
+</head>
+
+<body style="height: 100%;">
+    <div class="h-100  align-items-center justify-content-center">
+        <blockquote class="blockquote text-center">
+            <h1 class="display-5">R-P-S-L-S Game</h1><br>
+        </blockquote>
+
+
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">
+                <%= playerName %>, Choose your move
+            </p>
+            <br>
+        </blockquote>
+
+        <blockquote class="blockquote text-center">
+            <form action="/score" method="post">
+                <%- include ('../views/RPSbuttons.ejs') %>
+            </form>
+        </blockquote>
+
+    </div>
+
+</body>
+
+</html>
