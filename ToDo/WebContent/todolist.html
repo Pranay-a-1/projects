@@ -19,5 +19,34 @@
         <h1>My ToDo List</h1>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        Name
+        <input
+          type="text"
+          data-bind="value: 
+    ToDoList.task.name"
+        />
+        Description
+        <input type="text" data-bind="value: ToDoList.task.description" />
+        <button class="btn btn-primary" data-bind="click: ToDoList.addTask">
+          Add
+        </button>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach : ToDoList.tasks">
+        <tr>
+          <td data-bind="text : name"></td>
+          <td data-bind="text : description"></td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
