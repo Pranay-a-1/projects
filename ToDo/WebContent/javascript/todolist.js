@@ -4,6 +4,7 @@ var ToDoList = (function () {
   var task = {
     name: ko.observable(),
     description: ko.observable(),
+    status: ko.observable("new"),
   };
 
   /* array of tasks */
@@ -14,6 +15,7 @@ var ToDoList = (function () {
     tasks.unshift({
       name: task.name(),
       description: task.description(),
+      status: ko.observable(states.NEW),
     });
     clearTask();
   };
@@ -27,6 +29,18 @@ var ToDoList = (function () {
     console.log("Deleting task with name: " + task.name);
     //remove the task from the tasks array
     tasks.remove(task);
+  };
+
+  /* method to complete a task */
+  var completeTask = function (task) {
+    console.log("Completing task with name: " + task.name);
+    //set status of task to complete
+    task.status(states.COMPLETE);
+  };
+
+  var states = {
+    NEW: "new",
+    COMPLETE: "complete",
   };
 
   var init = function () {
@@ -43,5 +57,6 @@ var ToDoList = (function () {
     tasks: tasks,
     addTask: addTask,
     deleteTask: deleteTask,
+    completeTask: completeTask,
   };
 })();

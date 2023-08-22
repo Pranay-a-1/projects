@@ -43,10 +43,16 @@
         </tr>
       </thead>
       <tbody data-bind="foreach : ToDoList.tasks">
-        <tr>
+        <tr data-bind="css: { success: status() == 'complete' }">
           <td data-bind="text : name"></td>
           <td data-bind="text : description"></td>
           <td>
+            <button
+              class="btn btn-success"
+              data-bind="visible: status() != 'complete', click: ToDoList.completeTask"
+            >
+              Complete
+            </button>
             <button
               class="btn btn-danger"
               data-bind="click: ToDoList.deleteTask"
