@@ -39,12 +39,21 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody data-bind="foreach : ToDoList.tasks">
         <tr>
           <td data-bind="text : name"></td>
           <td data-bind="text : description"></td>
+          <td>
+            <button
+              class="btn btn-danger"
+              data-bind="click: ToDoList.deleteTask"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -23,6 +23,12 @@ var ToDoList = (function () {
     task.description(null);
   };
 
+  var deleteTask = function (task) {
+    console.log("Deleting task with name: " + task.name);
+    //remove the task from the tasks array
+    tasks.remove(task);
+  };
+
   var init = function () {
     /* add code to initialize this module */
     ko.applyBindings(ToDoList);
@@ -36,5 +42,6 @@ var ToDoList = (function () {
     task: task,
     tasks: tasks,
     addTask: addTask,
+    deleteTask: deleteTask,
   };
 })();
