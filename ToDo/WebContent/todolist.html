@@ -29,6 +29,33 @@
         />
         Description
         <input type="text" data-bind="value: ToDoList.task.description" />
+        <div class="row">
+          <div class="col-md-12">
+            Sort by
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-bind="click: ToDoList.sortByPriority"
+              >
+                priority
+              </button>
+              <button
+                type="button"
+                class="btn btn-default"
+                data-bind="click: ToDoList.sortByName"
+              >
+                name
+              </button>
+            </div>
+          </div>
+        </div>
+        Priority
+        <select data-bind="value: ToDoList.task.priority">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
         <button class="btn btn-primary" data-bind="click: ToDoList.addTask">
           Add
         </button>
@@ -39,6 +66,7 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th>Priority</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -46,6 +74,7 @@
         <tr data-bind="css: { success: status() == 'complete' }">
           <td data-bind="text : name"></td>
           <td data-bind="text : description"></td>
+          <td data-bind="text: priority"></td>
           <td>
             <button
               class="btn btn-success"
@@ -63,5 +92,23 @@
         </tr>
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-md-12">
+        <span data-bind="visible: ToDoList.tasks().length > 0">
+          <strong
+            >Total: <span data-bind="text: ToDoList.tasks().length"></span>
+          </strong>
+        </span>
+        <span data-bind="visible: ToDoList.tasks().length == 0">
+          <strong>No tasks in my list</strong>
+        </span>
+        <span data-bind="visible: ToDoList.tasks().length > 0">
+          <strong
+            >Completed:
+            <span data-bind="text: ToDoList.numOfCompletedTasks()"></span>
+          </strong>
+        </span>
+      </div>
+    </div>
   </body>
 </html>
