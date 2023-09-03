@@ -324,10 +324,13 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="poBoxPostCodeInput">Postcode</label>
-                    <input type="text" class="form-control" data-bind="value:
-                    data-bind="value:
-                    RegistrationForm.customer.address.postal.poBoxAddress.postCode"
-                    id="poBoxPostCodeInput" placeholder="Enter postcode">
+                    <input
+                      type="text"
+                      class="form-control"
+                      data-bind="value: RegistrationForm.customer.address.postal.poBoxAddress.postCode"
+                      id="poBoxPostCodeInput"
+                      placeholder="Enter postcode"
+                    />
                   </div>
                 </div>
                 <div class="col-md-5">
@@ -347,6 +350,78 @@
           </div>
         </div>
       </fieldset>
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Credit Cards</h4>
+          </div>
+        </div>
+        <div data-bind="foreach: RegistrationForm.customer.creditCards">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="ccNameInput">Name on card</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  data-bind="value: name"
+                  id="ccNameInput"
+                  placeholder="Enter name on card"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="ccNumberInput">Card Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  data-bind="value: number"
+                  id="ccNumberInput"
+                  placeholder="Enter card number"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="ccExpiryDateInput">Card Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  data-bind="value: expiryDate"
+                  id="ccExpiryDateInput"
+                  placeholder="mm/yy"
+                />
+              </div>
+            </div>
+            <div
+              class="col-md-1"
+              data-bind="visible: RegistrationForm.customer.creditCards().length > 1"
+            >
+              <div class="form-group">
+                <label for="ccActionInput">Action</label>
+                <a
+                  href
+                  id="ccActionInput"
+                  data-bind="click: RegistrationForm.deleteCreditCard"
+                  >delete</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          data-bind="visible: RegistrationForm.customer.creditCards().length < 3"
+        >
+          <div class="col-md-4">
+            <a href data-bind="click: RegistrationForm.addCreditCard"
+              >+ credit card</a
+            >
+          </div>
+        </div>
+      </fieldset>
+
       <button type="Submit" class="btn btn-primary">Submit</button>
     </form>
   </body>

@@ -37,6 +37,7 @@ var RegistrationForm = (function () {
         },
       },
     },
+    creditCards: ko.observableArray(),
   };
 
   /* form submission */
@@ -82,8 +83,27 @@ var RegistrationForm = (function () {
     }
   });
 
+  /* method to add credit card to the credit cards array */
+  var addCreditCard = function () {
+    customer.creditCards.push({
+      name: ko.observable(),
+      number: ko.observable(),
+      expiryDate: ko.observable(),
+    });
+  };
+
+  /* method to delete a credit card from the credit cards array */
+  var deleteCreditCard = function (card) {
+    console.log("Deleting credit card with number: " + card.number());
+    //remove the credit card from the array
+    customer.creditCards.remove(card);
+  };
+
   var init = function () {
     /* add code to initialize this module */
+    //add the first credit card
+    addCreditCard();
+    //apply ko bindings
     ko.applyBindings(RegistrationForm);
   };
 
@@ -96,5 +116,7 @@ var RegistrationForm = (function () {
     customer: customer,
     titleOptions: titleOptions,
     titleSelect: titleSelect,
+    addCreditCard: addCreditCard,
+    deleteCreditCard: deleteCreditCard,
   };
 })();
