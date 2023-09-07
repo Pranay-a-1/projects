@@ -139,7 +139,7 @@
                     value="phone"
                     name="preferredContactInput"
                     data-bind="checked: 
-        RegistrationForm.customer.contactDetails.preferredContact"
+                    RegistrationForm.customer.contactDetails.preferredContact"
                   />Phone
                 </label>
                 <label class="radio-inline">
@@ -148,7 +148,7 @@
                     value="email"
                     name="preferredContactInput"
                     data-bind="checked: 
-        RegistrationForm.customer.contactDetails.preferredContact"
+                    RegistrationForm.customer.contactDetails.preferredContact"
                   />Email
                 </label>
               </div>
@@ -421,8 +421,61 @@
           </div>
         </div>
       </fieldset>
-
+      <fieldset>
+        <fieldset>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Interests</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="checkbox">
+                <label class="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    value="sports"
+                    data-bind="checked: RegistrationForm.customer.interests"
+                  />
+                  Sports
+                </label>
+                <label class="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    value="news"
+                    data-bind="checked: RegistrationForm.customer.interests"
+                  />
+                  News
+                </label>
+                <label class="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    value="movies"
+                    data-bind="checked: RegistrationForm.customer.interests"
+                  />
+                  Movies
+                </label>
+                <label class="checkbox-inline">
+                  <input
+                    type="checkbox"
+                    value="comedy"
+                    data-bind="checked: RegistrationForm.customer.interests"
+                  />
+                  Comedy
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </fieldset>
       <button type="Submit" class="btn btn-primary">Submit</button>
+      <button
+        type="button"
+        class="btn btn-default"
+        data-bind="click: RegistrationForm.clear"
+      >
+        Clear
+      </button>
     </form>
   </body>
 </html>

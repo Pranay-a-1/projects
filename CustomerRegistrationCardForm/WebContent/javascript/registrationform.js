@@ -38,6 +38,7 @@ var RegistrationForm = (function () {
       },
     },
     creditCards: ko.observableArray(),
+    interests: ko.observableArray(),
   };
 
   /* form submission */
@@ -99,6 +100,29 @@ var RegistrationForm = (function () {
     customer.creditCards.remove(card);
   };
 
+  /* method to traverse the model and clear observables */
+  var traverseAndClearModel = function (jsonObj) {
+    $.each(jsonObj, function (key, val) {
+      if (ko.isObservable(val)) {
+        if (val.removeAll != undefined) {
+          val.removeAll();
+        } else {
+          val(null);
+        }
+      } else {
+        traverseAndClearModel(val);
+      }
+    });
+  };
+
+  /* clear the model */
+  var clear = function () {
+    console.log("Clear customer model");
+    traverseAndClearModel(customer);
+    //add the first credit card
+    addCreditCard();
+  };
+
   var init = function () {
     /* add code to initialize this module */
     //add the first credit card
@@ -118,5 +142,6 @@ var RegistrationForm = (function () {
     titleSelect: titleSelect,
     addCreditCard: addCreditCard,
     deleteCreditCard: deleteCreditCard,
+    clear: clear,
   };
 })();
