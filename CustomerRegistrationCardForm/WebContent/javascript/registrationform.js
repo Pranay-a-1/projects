@@ -1,10 +1,25 @@
 /* Module for Registration form application */
 var RegistrationForm = (function () {
   /* add members here */
+
+  /* extender for required fields */
+  ko.extenders.required = function (target, option) {
+    //observables to indicate an error
+    target.hasError = ko.observable(false);
+
+    //set the error flag whenever the value changes
+    target.subscribe(function (newValue) {
+      target.hasError(newValue ? false : true);
+    });
+
+    //return the original observable
+    return target;
+  };
+
   // model
   var customer = {
     personalInfo: {
-      firstName: ko.observable(),
+      firstName: ko.observable().extend({ required: null }),
       middleName: ko.observable(),
       lastName: ko.observable(),
       title: ko.observable(),
