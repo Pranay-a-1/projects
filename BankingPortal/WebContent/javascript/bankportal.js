@@ -18,7 +18,17 @@ var BankPortal = (function () {
   };
 
   /* the model */
-  var member = {};
+  var member = {
+    accounts: ko.observableArray(),
+    selectedAccount: ko.observable(),
+    selectedAccountTransactions: ko.observableArray([]),
+  };
+
+  /* module to retrieve data from the server */
+  var server = ServerStub();
+
+  console.log("Retrieving data from server......");
+  var data = server.getMemberData();
 
   /* attribute to hold the active tab */
   var activeTab = ko.observable("Accounts");
@@ -35,9 +45,37 @@ var BankPortal = (function () {
     return activeTab() === tab;
   };
 
+  /* method retrieves data from the server side and sets it in the model */
+  var retrieveData = function () {
+    console.log("Retrieving data from server......");
+    var data = server.getMemberData();
+    console.log("Data retrieved from server: " + ko.toJSON(data));
+
+    //add accounts to the model
+    data.accounts.forEach(function (account) {
+      member.accounts.push({
+        summary: account.summary,
+        transactions: ko.observableArray(account.transactions),
+      });
+    });
+  };
+
+  /* sets the selected account */
+  var setSelectedAccount = function (account) {
+    console.log("Setting selected account: " + account.summary.number);
+    member.selectedAccount(account);
+    member.selectedAccountTransactions(account.transactions());
+  };
+
+  /* returns true if the account matches selected account, false otherwise */
+  var isSelectedAccount = function (account) {
+    return account === member.selectedAccount();
+  };
+
   /* method to initialize the module */
   var init = function () {
     /* add code to initialize this module */
+    retrieveData();
     //apply ko bindings
     ko.applyBindings(BankPortal);
   };
@@ -53,5 +91,9 @@ var BankPortal = (function () {
     isActivePage: isActivePage,
     setActiveTab: setActiveTab,
     isActiveTab: isActiveTab,
+    server: server,
+    retrieveData: retrieveData,
+    setSelectedAccount: setSelectedAccount,
+    isSelectedAccount: isSelectedAccount,
   };
 })();
