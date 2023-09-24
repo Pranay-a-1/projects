@@ -6,13 +6,15 @@
 		
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/carousel.css">
+		<link rel="stylesheet" href="css/bankportal.css">
 		
 		<script type="text/javascript" src="javascript/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="javascript/knockout-3.2.0.js"></script>
-		<script type="text/javascript" src="javascript/configureknockout.js"></script>		
 		<script type="text/javascript" src="javascript/knockout.validation.min.js"></script>
+		<script type="text/javascript" src="javascript/configureknockout.js"></script>		
 		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="javascript/serverstub.js"></script>
+		<script type="text/javascript" src="javascript/wizard.js"></script>
 		<script type="text/javascript" src="javascript/bankportal.js"></script>
 	</head>
 	<body>
@@ -52,7 +54,10 @@
 				  	<li data-bind="css: {active: BankPortal.isActiveTab('Personal')}">
 				  		<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Personal')">Personal</a>
 				  	</li>
-				</ul>			
+				  	<li data-bind="css: {active: BankPortal.isActiveTab('Transfers')}">
+				  		<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Transfers')">Transfers</a>
+				  	</li>
+				</ul>
 				<div id="accounts" data-bind="visible: BankPortal.isActiveTab('Accounts')">
 					<div class="row">
 						<div class="col-md-12">
@@ -114,8 +119,171 @@
 					</div>
 				</div>
 				<div id="personal" data-bind="visible: BankPortal.isActiveTab('Personal')">
-					<p>--- Content for Personal goes here ---</p>
+					<div class="row">
+						<div class="col-md-12">					
+							<div class="panel panel-default">
+								<div class="panel-heading">Personal Information</div>
+	  							<div class="panel-body">
+									<form data-bind="submit: BankPortal.submitPersonalInformation">
+										<div class="alert alert-success" role="alert" data-bind="visible: BankPortal.showPersonalInformationEditDone"> <strong>Done! </strong>Personal information updated </div>
+										<div class="alert alert-warning" role="alert" data-bind="visible: BankPortal.showPersonalInformationEditCancel"> <strong>Cancelled! </strong>Edit cancelled and values reverted </div>
+											
+										<fieldset> 
+											<div class="row">
+												<div class="col-md-6" data-bind="validationElement: BankPortal.member.personal.firstName">
+													<div class="form-group">
+									    				<label for="firstNameInput">First Name</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.firstName" id="firstNameInput">
+									  				</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group"  data-bind="validationElement: BankPortal.member.personal.lastName">
+									    				<label for="lastNameInput">Last Name</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.lastName" id="lastNameInput">
+									  				</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group"  data-bind="validationElement: BankPortal.member.personal.contactDetails.phoneNumber">
+									    				<label for="phoneNumberInput">Phone number</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.contactDetails.phoneNumber" id="phoneNumberInput">
+									  				</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group" data-bind="validationElement: BankPortal.member.personal.contactDetails.emailAddress">
+									    				<label for="emailInput">Email</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.contactDetails.emailAddress" id="emailInput">
+									  				</div>
+												</div>
+							  				</div>		  				
+											<div class="row">
+												<div class="col-md-12">
+													<h4>Address</h4>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group" data-bind="validationElement: BankPortal.member.personal.address.street">
+									    				<label for="streetInput">Street</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.street" id="streetInput">
+									  				</div>
+												</div>
+												<div class="col-md-8">
+													<div class="form-group" data-bind="validationElement: BankPortal.member.personal.address.city">
+									    				<label for="cityInput">City</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.city" id="cityInput">
+									  				</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group" data-bind="validationElement: BankPortal.member.personal.address.postCode">
+									    				<label for="postCodeInput">Post code</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.postCode" id="postCodeInput">
+									  				</div>
+												</div>
+												<div class="col-md-8">
+													<div class="form-group" data-bind="validationElement: BankPortal.member.personal.address.country">
+									    				<label for="countryInput">Country</label>
+									    				<input type="text" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.country" id="countryInput">
+									  				</div>
+												</div>
+											</div>
+							  			</fieldset>
+										<button type="button" class="btn btn-default" data-bind="visible: BankPortal.personalInformationEditMode() == false, click: BankPortal.enablePersonalnformationEdit">Edit</button>
+										<button type="submit" class="btn btn-primary" data-bind="visible: BankPortal.personalInformationEditMode">Submit</button>
+										<button type="button" class="btn btn-default" data-bind="visible: BankPortal.personalInformationEditMode, click: BankPortal.cancelPersonalInformationEdit">Cancel</button>																  											  			
+							  		</form>		
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+				<div id="transfers" data-bind="visible: BankPortal.isActiveTab('Transfers')">
+					<div class="row">
+						<div class="col-md-12">					
+							<div class="panel panel-default">
+								<div class="panel-heading">Transfer funds</div>
+	  							<div class="panel-body">
+									<div class="alert alert-success" role="alert" data-bind="visible: BankPortal.transferWizard.showDoneMessage"> 
+										<strong>Done! </strong>
+										<span data-bind="text: BankPortal.transferWizard.doneMessage"> </span>
+									</div>								
+	  								<div class="row row-centered">
+		  								<div class="col-md-8 col-centered">
+			  								<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 1">
+												<div class="row row-centered">
+													<div class="col-md-8 col-centered">
+														<div class="form-group">
+										    				<label class="pull-left" for="accountFrom">Account from</label>
+										    				<select id="accountFrom" class="form-control" 
+										    						data-bind="options: BankPortal.member.accounts, 
+										    									optionsText: function(item) {return item.summary.type + ' ' + item.summary.number;},
+										    									optionsCaption: 'Choose from account.....',
+										    									value: BankPortal.transfer.fromAccount"> 
+										    				</select>
+										  				</div>
+													</div>
+													 
+													<div class="col-md-8 col-centered">
+														<div class="form-group">
+										    				<label class="pull-left" for="accountTo">Account to</label>
+										    				<select id="accountTo" class="form-control" 
+										    						data-bind="options: BankPortal.member.accounts, 
+										    									optionsText: function(item) {return item.summary.type + ' ' + item.summary.number;},
+										    									optionsCaption: 'Choose to account.....',
+										    									value: BankPortal.transfer.toAccount"> 
+										    				</select>
+										  				</div>
+													</div>
+												</div>	
+			  								</div>
+			  								<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 2">
+												<div class="row row-centered">
+													<div class="col-md-8 col-centered">
+														<div class="form-group">
+										    				<label class="pull-left" for="transferAmount">Amount</label>
+										    				<input id="transferAmount" class="form-control" data-bind="value: BankPortal.transfer.amount"/> 
+										  				</div>
+													</div>
+													 
+													<div class="col-md-8 col-centered">
+														<div class="form-group">
+										    				<label class="pull-left" for="transferDescription">Description</label>
+										    				<input id="transferDescription" class="form-control" data-bind="value: BankPortal.transfer.description"/> 
+										  				</div>
+													</div>
+												</div>	
+			  								</div>
+			  								<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 3">
+												<div class="row row-centered">
+													<div class="col-md-8 col-centered">
+														<strong>From account: </strong><span data-bind="text: BankPortal.transfer.fromAccount().summary.type + ' ' + BankPortal.transfer.fromAccount().summary.number"> </span>
+													</div>
+													<div class="col-md-8 col-centered">
+														<strong>To account: </strong><span data-bind="text: BankPortal.transfer.toAccount().summary.type + ' ' + BankPortal.transfer.toAccount().summary.number"> </span>
+													</div>
+													<div class="col-md-8 col-centered">
+														<strong>Amount: </strong><span data-bind="currency: BankPortal.transfer.amount"> </span>
+													</div>
+													<div class="col-md-8 col-centered">
+														<strong>Description: </strong><span data-bind="text: BankPortal.transfer.description"> </span>
+													</div>
+												</div>
+			  								</div>
+			  								
+											<ul class="wizard-indicators">
+												<li data-bind="css: { active: BankPortal.transferWizard.currentStep() == 1 }"></li>
+												<li data-bind="css: { active: BankPortal.transferWizard.currentStep() == 2 }"></li>
+												<li data-bind="css: { active: BankPortal.transferWizard.currentStep() == 3 }"></li>
+											</ul>
+			  								<button type="button" class="btn btn-default pull-left" data-bind="click: BankPortal.transferWizard.back, visible: BankPortal.transferWizard.isFirstStep() == false">Back</button>																  											  			
+			  								<button type="button" class="btn btn-primary pull-right" data-bind="click: BankPortal.transferWizard.next, visible: BankPortal.transferWizard.isLastStep() == false">Next</button>
+			  								<button type="button" class="btn btn-success pull-right" data-bind="click: BankPortal.transferWizard.done, visible: BankPortal.transferWizard.isLastStep() == true">Done</button>
+	  									</div>
+	  								</div>
+	  							</div>
+	  						</div>
+	  					</div>
+	  				</div>
+				</div>	
 			</div>
 			<div id="about" data-bind="visible: BankPortal.isActivePage('About')">
 				<div id="myBankCarousel" class="carousel slide" data-ride="carousel">
