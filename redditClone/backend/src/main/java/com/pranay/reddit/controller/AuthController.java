@@ -1,9 +1,12 @@
 package com.pranay.reddit.controller;
 
+import com.pranay.reddit.dto.AuthenticationResponse;
+import com.pranay.reddit.dto.LoginRequest;
 import com.pranay.reddit.dto.RegisterRequest;
 import com.pranay.reddit.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,16 @@ public class AuthController {
         authService.signup(registerRequest);
         return new ResponseEntity<>("User Registration Successful",
                 OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        AuthenticationResponse authenticationResponse = authService.login(loginRequest);
+        if (authenticationResponse != null && authenticationResponse.getSuccess().equals("true")) {
+            return new ResponseEntity<>("Welcome " + authenticationResponse.getUsername(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Login Failed", HttpStatus.UNAUTHORIZED);
+        }
     }
 
 
