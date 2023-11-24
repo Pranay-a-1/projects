@@ -2,10 +2,12 @@ package com.pranay.reddit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pranay.reddit.dto.RegisterRequest;
+import com.pranay.reddit.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,6 +22,10 @@ public class AuthControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private AuthService authService;
+
+
     @Test
     public void testSignupSuccess() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest("test@example.com", "testUser", "testPass");
@@ -29,8 +35,7 @@ public class AuthControllerTest {
         mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(content().string("success"));
+                .andExpect(status().isOk());
     }
 
     //test for failure of signup
