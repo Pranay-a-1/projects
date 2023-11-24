@@ -20,7 +20,6 @@ public class Post {
 
     private String url;
 
-    @Lob
     private String description;
 
     private Integer voteCount = 0;

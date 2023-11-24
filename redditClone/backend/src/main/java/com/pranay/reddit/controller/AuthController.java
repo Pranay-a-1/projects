@@ -21,16 +21,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final SubredditService subredditService;
-
-
-    @PostMapping("/subreddit")
-    public ResponseEntity<SubredditDto> createSubreddit(@Valid @RequestBody SubredditDto subredditDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(subredditService.save(subredditDto));
-
-    }
-
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody RegisterRequest registerRequest) {
         authService.signup(registerRequest);

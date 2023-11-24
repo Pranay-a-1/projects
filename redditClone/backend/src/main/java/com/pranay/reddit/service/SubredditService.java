@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,17 +27,24 @@ public class SubredditService {
 
     @Transactional(readOnly = true)
     public List<SubredditDto> getAll() {
-        return subredditRepository.findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+        List<Subreddit> subreddits = subredditRepository.findAll();
+        List<SubredditDto> subredditDtos = new ArrayList<>();
+
+        for (Subreddit subreddit : subreddits) {
+            SubredditDto dto = mapToDto(subreddit);
+            subredditDtos.add(dto);
+        }
+
+        return subredditDtos;
     }
+
 
     private SubredditDto mapToDto(Subreddit subreddit) {
         return SubredditDto.builder()
                 .name(subreddit.getName())
                 .numberOfPosts(subreddit.getPosts().size())
                 .id(subreddit.getId())
+                .description(subreddit.getDescription())
                 .build();
 
     }
@@ -49,5 +56,12 @@ public class SubredditService {
                 .build();
     }
 
+
+    public SubredditDto getSubreddit(Long id) {
+        Subreddit subreddit = subredditRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Subreddit not found"));
+        return mapToDto(subreddit);
+
+    }
 
 }
