@@ -3,7 +3,9 @@ package com.pranay.reddit.controller;
 import com.pranay.reddit.dto.AuthenticationResponse;
 import com.pranay.reddit.dto.LoginRequest;
 import com.pranay.reddit.dto.RegisterRequest;
+import com.pranay.reddit.dto.SubredditDto;
 import com.pranay.reddit.service.AuthService;
+import com.pranay.reddit.service.SubredditService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,15 @@ public class AuthController {
 
     private final AuthService authService;
 
+    private final SubredditService subredditService;
 
+
+    @PostMapping("/subreddit")
+    public ResponseEntity<SubredditDto> createSubreddit(@Valid @RequestBody SubredditDto subredditDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(subredditService.save(subredditDto));
+
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody RegisterRequest registerRequest) {

@@ -7,9 +7,7 @@ import com.pranay.reddit.dto.RegisterRequest;
 import com.pranay.reddit.model.User;
 import com.pranay.reddit.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
 
@@ -29,8 +27,8 @@ public class AuthService {
     public void signup(RegisterRequest registerRequest) {
         User user = new User();
         user.setUsername(registerRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-//        user.setPassword(registerRequest.getPassword());
+//        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPassword(registerRequest.getPassword());
         user.setEmail(registerRequest.getEmail());
         user.setCreated(Instant.now());
         user.setEnabled(false);
@@ -43,7 +41,8 @@ public class AuthService {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+//            if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            if (loginRequest.getPassword().equals(user.getPassword())) {
                 // Create and return AuthenticationResponse
                 AuthenticationResponse authenticationResponse = new AuthenticationResponse();
                 authenticationResponse.setUsername(loginRequest.getUsername());
