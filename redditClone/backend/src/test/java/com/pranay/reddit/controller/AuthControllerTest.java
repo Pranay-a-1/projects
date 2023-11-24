@@ -1,31 +1,49 @@
 package com.pranay.reddit.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pranay.reddit.dto.RegisterRequest;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-class AuthControllerTest {
+@WebMvcTest(AuthController.class)
+@AutoConfigureMockMvc(addFilters = false)
+public class AuthControllerTest {
 
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    void signup() {
-        // Initialize the AuthController and RegisterRequest objects
-        AuthController authController = new AuthController();
-        RegisterRequest validRequest = new RegisterRequest("test@example.com", "testUser", "testPassword");
+    public void testSignupSuccess() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("test@example.com", "testUser", "testPass");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonRequest = objectMapper.writeValueAsString(registerRequest);
 
-        // Test with a valid RegisterRequest
-        assertDoesNotThrow(() -> authController.signup(validRequest));
+        mockMvc.perform(post("/api/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk())
+                .andExpect(content().string("success"));
+    }
 
-        // Test with a null RegisterRequest
-        RegisterRequest nullRequest = null;
-        assertThrows(NullPointerException.class, () -> authController.signup(nullRequest));
+    //test for failure of signup
+    @Test
+    public void testSignupFailure() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("", "", "");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonRequest = objectMapper.writeValueAsString(registerRequest);
 
-        // Test with an invalid RegisterRequest
-        RegisterRequest invalidRequest = new RegisterRequest("", "", "");
-        assertThrows(RuntimeException.class, () -> authController.signup(invalidRequest));
-
-        assertThrows(NullPointerException.class, () -> new RegisterRequest(null, null, null));
-
+        mockMvc.perform(post("/api/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isBadRequest());
     }
 }
+

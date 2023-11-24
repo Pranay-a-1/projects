@@ -1,6 +1,7 @@
 package com.pranay.reddit.controller;
 
 import com.pranay.reddit.dto.RegisterRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @PostMapping("/signup")
-    public String signup(@RequestBody RegisterRequest registerRequest) {
+    public String signup(@Valid @RequestBody RegisterRequest registerRequest) {
         //simple code for testing this method
         System.out.println("Testing signup method");
         //print properties of RegisterRequest
@@ -18,12 +19,6 @@ public class AuthController {
         return "success";
 
     }
-
-    @GetMapping("/home")
-    public String home() {
-        return "This is home page";
-    }
-
 
 
 }
